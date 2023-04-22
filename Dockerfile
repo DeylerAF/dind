@@ -1,6 +1,12 @@
 FROM php:8.2.5-apache
 
-COPY /src /var/www/html
+# Install GIT
+RUN apt-get update && \
+    apt-get install -y git && \
+    rm -rf /var/lib/apt/lists/*
+
+# Clone the repository
+RUN git clone https://github.com/DeylerAF/portfolio.git /var/www/html
 
 EXPOSE 80
 
@@ -19,7 +25,7 @@ RUN apt-get update \
 
 # Install required libraries for Composer
 RUN apt-get update && \
-    apt-get install -y git zip unzip && \
+    apt-get install -y zip unzip && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Composer
